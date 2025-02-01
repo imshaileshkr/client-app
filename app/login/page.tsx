@@ -2,7 +2,6 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { CgSpinner } from "react-icons/cg";
-
 import * as yup from "yup";
 import { Login } from "../types/auth";
 import { toast } from "react-toastify";
@@ -87,7 +86,10 @@ const page = () => {
             </div>
 
             <div>
-              <button className="w-full bg-green-600 py-2 font-semibold rounded-sm inline-flex justify-center items-center">
+              <button
+                type="submit"
+                className="w-full bg-green-600 py-2 font-semibold rounded-sm inline-flex justify-center items-center"
+              >
                 Login
                 {loading && <CgSpinner className="animate-spin text-2xl" />}
               </button>

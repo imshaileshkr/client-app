@@ -1,15 +1,17 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 import { CgSpinner } from "react-icons/cg";
 
 import * as yup from "yup";
-import { Login, Register } from "../types/auth";
-import { toast } from "react-toastify";
+import { Register } from "../types/auth";
 import { ErrorMessage, Field, Form, Formik } from "formik";
+import { useAuth } from "../context/auth.context";
+
+import { useRouter } from "next/navigation";
 
 const page = () => {
-  const [loading, setLoading] = useState<boolean>(false);
+  const { register, isLoading, login } = useAuth();
   const initialValue: Register = {
     email: "",
     password: "",
@@ -35,16 +37,16 @@ const page = () => {
       .oneOf([yup.ref("password"), ""], "Passwords must match")
       .required("Confirm Password is required"),
   });
+  const router = useRouter();
 
-  const onSubmit = (e: Login, { resetForm }: any) => {
-    setLoading(true);
+  const onSubmit = async (e: Register, { resetForm }: any) => {
     try {
-      setLoading(false);
-      toast.success("Login successful");
-    } catch (error) {
-      setLoading(false);
-      toast.error("Login failed");
-    }
+      await register(e);
+      resetForm();
+      setTimeout(() => {
+        router.push("/login");
+      }, 2000);
+    } catch (error) {}
   };
   return (
     <div className="min-h-[80vh] w-full flex justify-center items-center">
@@ -131,9 +133,12 @@ const page = () => {
             </div>
 
             <div>
-              <button className="w-full bg-green-600 py-2 font-semibold rounded-sm inline-flex justify-center items-center">
+              <button
+                type="submit"
+                className="w-full bg-green-600 py-2 font-semibold rounded-sm inline-flex justify-center items-center"
+              >
                 Register
-                {loading && <CgSpinner className="animate-spin text-2xl" />}
+                {isLoading && <CgSpinner className="animate-spin text-2xl" />}
               </button>
               <div className="flex justify-end mt-3">
                 <p className="text-sm">
