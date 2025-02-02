@@ -20,17 +20,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const register = async (payload: Register) => {
     setIsLoading(true);
-    try {
-      const res = await AxiosProvider.post("user/register", payload);
-      localStorage.setItem("user", JSON.stringify(res?.data?.data?.user));
-      localStorage.setItem("access_token", res?.data?.token);
-      toast.success("Registration successful");
-      return res?.data?.data?.user;
-    } catch (error: any) {
-      toast.error(error?.data?.message);
-    } finally {
-      setIsLoading(false);
-    }
+    const res = await AxiosProvider.post("user/register", payload);
+
+    const response = await res.data;
+
+    localStorage.setItem("user", JSON.stringify(response?.user));
+    localStorage.setItem("access_token", response?.token);
+    setIsLoading(false);
+
   };
   const login = async () => {
     setIsLoading(true);

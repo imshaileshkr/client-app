@@ -9,6 +9,8 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useAuth } from "../context/auth.context";
 
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import { AxiosError } from "axios";
 
 const page = () => {
   const { register, isLoading, login } = useAuth();
@@ -43,10 +45,14 @@ const page = () => {
     try {
       await register(e);
       resetForm();
+      toast.success("Registration successful", { autoClose: 1000 });
       setTimeout(() => {
         router.push("/login");
-      }, 2000);
-    } catch (error) {}
+      }, 1000);
+    } catch (error: AxiosError | any) {
+      toast.error(error?.response?.data?.message);
+      console.log("🚀 ~ onSubmit ~ error:", error?.response?.data?.message);
+    }
   };
   return (
     <div className="min-h-[80vh] w-full flex justify-center items-center">
