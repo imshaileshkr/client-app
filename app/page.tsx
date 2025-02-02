@@ -7,8 +7,8 @@ const page = () => {
         <div className="mb-2 border-b">
           <h1 className="text-2xl text-white text-center">Profile</h1>
         </div>
-        <h1 className="text-white text-lg">Shailesh Kuamr</h1>
-        <h1 className="text-white text-lg">Shaielsh@google.com</h1>
+        <h1 className="text-white text-lg">User Name</h1>
+        <h1 className="text-white text-lg">User Email</h1>
         <button className="px-6 py-2 rounded-md bg-green-600">Logout</button>
       </div>
     </div>
