@@ -6,9 +6,13 @@ import * as yup from "yup";
 import { Login } from "../types/auth";
 import { toast } from "react-toastify";
 import { ErrorMessage, Field, Form, Formik } from "formik";
+import { useAuth } from "../context/auth.context";
+import { useRouter } from "next/navigation";
+import { AxiosError } from "axios";
 
 const page = () => {
-  const [loading, setLoading] = useState<boolean>(false);
+  const { login, isLoading } = useAuth();
+  const router = useRouter();
   const initialValue: Login = {
     email: "",
     password: "",
@@ -25,14 +29,14 @@ const page = () => {
       .required("Password is required"),
   });
 
-  const onSubmit = (e: Login, { resetForm }: any) => {
-    setLoading(true);
+  const onSubmit = async (e: Login, { resetForm }: any) => {
     try {
-      setLoading(false);
+      await login(e);
+      router.push("/");
       toast.success("Login successful");
-    } catch (error) {
-      setLoading(false);
-      toast.error("Login failed");
+      resetForm();
+    } catch (error: AxiosError | any) {
+      toast.error(error?.response?.data?.message);
     }
   };
   return (
@@ -52,7 +56,7 @@ const page = () => {
 
             <div className="mb-4 flex flex-col gap-y-1">
               <label htmlFor="email" className="block text-xl">
-                Your email <span className="text-red-400">*</span>
+                Email <span className="text-red-400">*</span>
               </label>
               <Field
                 type="email"
@@ -91,7 +95,7 @@ const page = () => {
                 className="w-full bg-green-600 py-2 font-semibold rounded-sm inline-flex justify-center items-center"
               >
                 Login
-                {loading && <CgSpinner className="animate-spin text-2xl" />}
+                {isLoading && <CgSpinner className="animate-spin text-2xl" />}
               </button>
               <div className="flex justify-end mt-3">
                 <p className="text-sm">

@@ -7,6 +7,7 @@ export const AxiosProvider = axios.create({
     baseURL: process.env.backend_api_endpoint, // This will use the environment variable
     headers: {
         "Content-Type": "application/json", // Ensure headers are set correctly
+
     },
 });
 

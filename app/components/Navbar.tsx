@@ -7,10 +7,12 @@ const Navbar = () => {
       <header className="w-full bg-green-500">
         <nav className="w-[96%] md:w-[80%] mx-auto flex items-center justify-between py-4">
           <Link href="/">
-            <h1 className="text-2xl font-bold text-white">Logo</h1>
+            <h1 className="text-2xl font-bold text-white cursor-pointer">
+              Logo
+            </h1>
           </Link>
           <ul className="flex items-center gap-x-5">
-            <li className="text-base">
+            <li className="text-base cursor-pointer">
               <Link
                 href={"/"}
                 className="text-white hover:text-blue-600 transition-all duration-300"
@@ -18,7 +20,7 @@ const Navbar = () => {
                 Dashboard
               </Link>
             </li>
-            <li className="text-base">
+            <li className="text-base cursor-pointer">
               <Link
                 href={"/login"}
                 className="text-white hover:text-blue-600 transition-all duration-300"
@@ -26,7 +28,7 @@ const Navbar = () => {
                 Login
               </Link>
             </li>
-            <li className="text-base">
+            <li className="text-base cursor-pointer">
               <Link
                 href={"/register"}
                 className="text-white hover:text-blue-600 transition-all duration-300"

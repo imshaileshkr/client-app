@@ -47,7 +47,7 @@ const page = () => {
       resetForm();
       toast.success("Registration successful", { autoClose: 1000 });
       setTimeout(() => {
-        router.push("/login");
+        router.push("/");
       }, 1000);
     } catch (error: AxiosError | any) {
       toast.error(error?.response?.data?.message);
@@ -88,7 +88,7 @@ const page = () => {
 
             <div className="mb-4 flex flex-col gap-y-1">
               <label htmlFor="email" className="block text-xl">
-                Your email <span className="text-red-400">*</span>
+                Email <span className="text-red-400">*</span>
               </label>
               <Field
                 type="email"
