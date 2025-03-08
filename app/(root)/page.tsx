@@ -31,7 +31,7 @@ const Page = () => {
         const res = await getProfile();
         console.log("🚀 ~ getProfile ~ res:", res);
       } catch (error) {
-        console.error("Error fetching profile:", error);
+        console.log("Error fetching profile:", error?.response?.data?.message);
       }
     }
 

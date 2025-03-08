@@ -8,3 +8,8 @@ export interface Register {
     password: string;
     confirmPassword: string
 }
+
+export interface IUser {
+    email: string;
+    username: string;
+}

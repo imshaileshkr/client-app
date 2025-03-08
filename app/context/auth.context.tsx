@@ -89,13 +89,17 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const getProfile = async () => {
     try {
-      const res = await AxiosProvider.get(`user/profile`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-        },
-      });
-      const response = res.data;
-    } catch (error) {}
+      const res = await AxiosProvider.get("user/profile", {});
+
+      if (res && res.data) {
+        return res.data; // Return the response data
+      } else {
+        throw new Error("No data found");
+      }
+    } catch (error) {
+      console.error("Error in getProfile:", error);
+      throw error;
+    }
   };
   return (
     <AuthContext.Provider
